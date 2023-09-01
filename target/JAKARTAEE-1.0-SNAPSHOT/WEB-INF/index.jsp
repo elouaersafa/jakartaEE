@@ -4,6 +4,7 @@
 <html>
 <c:import url="/includes/linkcss.jsp"/>
 <body>
+<<<<<<< HEAD
 
 <c:import url="/includes/header.jsp"/>
 
@@ -21,5 +22,18 @@
     <div class="features"></div>
     <div class="features"></div>
 </div>
+=======
+<h1><%= "Hello World!" %></h1>
+<br/>
+<a href="hello-servlet">Hello Servlet</a>*
+
+
+<form action="UserServlet" method="post">
+
+    <input id="lname" name="lname" required/>
+    <input id="fname" name="fname"  required/>
+    <button type="submit"> envoyer</button>
+</form>
+>>>>>>> cad190421345d525bfb676fecc0a2aefa2653254
 </body>
 </html>

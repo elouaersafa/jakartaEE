@@ -24,9 +24,13 @@ public class UserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-       String lname = request.getParameter("lname");
-       String fname = request.getParameter("fname");
+        String lname = request.getParameter("lname");
+        String fname = request.getParameter("fname");
+        String password = request.getParameter("password");
+        String photo = request.getParameter("photo");
+        String mail = request.getParameter("mail");
+        usercrud.registerUser(new User(fname, lname, password, photo, mail));
+        response.sendRedirect("index");
 
-       usercrud.registerUser(new User(fname,lname,"password","photo","mail"));
     }
 }

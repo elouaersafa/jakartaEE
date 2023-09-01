@@ -1,6 +1,7 @@
 package com.appcuisine.jakartaee.entities;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -14,6 +15,9 @@ public class Recipe {
     private String name;
     private String description;
     private String photo;
+    private LocalDate dateCook;
+    private String category;
+    private String mealType;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -25,10 +29,13 @@ public class Recipe {
     public Recipe() {
     }
 
-    public Recipe(String name, String description, String photo, User user, List<Ingredient> ingredients) {
+    public Recipe(String name, String description, String photo, LocalDate dateCook, String category, String mealType, User user, List<Ingredient> ingredients) {
         this.name = name;
         this.description = description;
         this.photo = photo;
+        this.dateCook = dateCook;
+        this.category = category;
+        this.mealType = mealType;
         this.user = user;
         this.ingredients = ingredients;
     }
@@ -65,6 +72,30 @@ public class Recipe {
         this.photo = photo;
     }
 
+    public LocalDate getDateCook() {
+        return dateCook;
+    }
+
+    public void setDateCook(LocalDate dateCook) {
+        this.dateCook = dateCook;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getMealType() {
+        return mealType;
+    }
+
+    public void setMealType(String mealType) {
+        this.mealType = mealType;
+    }
+
     public User getUser() {
         return user;
     }
@@ -79,5 +110,20 @@ public class Recipe {
 
     public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
+    }
+
+    @Override
+    public String toString() {
+        return "Recipe{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", photo='" + photo + '\'' +
+                ", dateCook=" + dateCook +
+                ", category='" + category + '\'' +
+                ", mealType='" + mealType + '\'' +
+                ", user=" + user +
+                ", ingredients=" + ingredients +
+                '}';
     }
 }

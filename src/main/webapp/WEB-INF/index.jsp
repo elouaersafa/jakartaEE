@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
+
 <html>
 <c:import url="/includes/linkcss.jsp"/>
 <body>
@@ -13,13 +13,12 @@
 </div>
 
 <div class="main">
-
-    <div class="features"><img src=""><p>${get.nom}</p></div>
-    <div class="features"></div>
-    <div class="features"></div>
-    <div class="features"></div>
-    <div class="features"></div>
-    <div class="features"></div>
+    <c:forEach items="${recipeList}" var="recipe">
+        <ul>
+            <li class="features"><img src="${recipe.photo}">
+                <p>${recipe.name}</p></li>
+        </ul>
+    </c:forEach>
 </div>
 </body>
 </html>

@@ -3,96 +3,83 @@ package com.appcuisine.jakartaee.dao;
 
 import com.appcuisine.jakartaee.entities.Recipe;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
+import javax.persistence.*;
 import java.util.List;
 
 public class RecipeDAO {
 
-    private EntityManagerFactory emf;
+    /*
+        public void create(Recipe recipe) {
+            EntityManager em = null;
+            EntityTransaction tx = null;
+            try {
+                em = emf.createEntityManager();
+                tx = em.getTransaction();
+                tx.begin();
 
-    public RecipeDAO(EntityManagerFactory emf) {
-        this.emf = emf;
-    }
+                em.persist(recipe);
 
-    public void create(Recipe recipe) {
-        EntityManager em = null;
-        EntityTransaction tx = null;
-        try {
-            em = emf.createEntityManager();
-            tx = em.getTransaction();
-            tx.begin();
-
-            em.persist(recipe);
-
-            tx.commit();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            if (tx != null && tx.isActive()) {
-                tx.rollback();
-            }
-        } finally {
-            if (em != null) {
-                em.close();
+                tx.commit();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                if (tx != null && tx.isActive()) {
+                    tx.rollback();
+                }
+            } finally {
+                if (em != null) {
+                    em.close();
+                }
             }
         }
-    }
 
-    public Recipe findById(Integer id) {
-        Recipe recipe = null;
-        EntityManager em = null;
-        EntityTransaction tx = null;
-        try {
-            em = emf.createEntityManager();
-            tx = em.getTransaction();
-            tx.begin();
+        public Recipe findById(Integer id) {
+            Recipe recipe = null;
+            EntityManager em = null;
+            EntityTransaction tx = null;
+            try {
+                em = emf.createEntityManager();
+                tx = em.getTransaction();
+                tx.begin();
 
-            recipe = em.find(Recipe.class, id);
+                recipe = em.find(Recipe.class, id);
 
-            tx.commit();
+                tx.commit();
 
-            em.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            if (tx != null && tx.isActive()) {
-                tx.rollback();
-            }
-        } finally {
-            if (em != null) {
                 em.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                if (tx != null && tx.isActive()) {
+                    tx.rollback();
+                }
+            } finally {
+                if (em != null) {
+                    em.close();
+                }
             }
+            return recipe;
         }
-        return recipe;
-    }
 
+    */
     public List<Recipe> findAll() {
-        List<Recipe> recipes = null;
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("appcuisine");
         EntityManager em = null;
-        EntityTransaction tx = null;
+        List recipeList = null;
         try {
             em = emf.createEntityManager();
-            tx = em.getTransaction();
-            tx.begin();
-
-            Query q = em.createNativeQuery("select id, name, description, photo, user_id, ingredients, dateCook from Recipe", Recipe.class);
-
-            recipes = q.getResultList();
-
-            tx.commit();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            if (tx != null && tx.isActive()) {
-                tx.rollback();
-            }
-        } finally {
-            if (em != null) {
-                em.close();
-            }
+            em.getTransaction().begin();
+            TypedQuery<Recipe> query = em.createQuery("SELECT r FROM Recipe r", Recipe.class);
+            recipeList = query.getResultList();
+            System.out.println(recipeList);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
         }
-        return recipes;
+        emf.close();
+        return recipeList;
+
     }
+}
+    /*
 
     public List<Recipe> findRecipeCooked() {
         List<Recipe> recipes = null;
@@ -203,3 +190,4 @@ public class RecipeDAO {
     }
 }
 
+*/

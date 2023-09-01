@@ -1,6 +1,8 @@
 package com.appcuisine.jakartaee.entities;
 
+
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -14,6 +16,9 @@ public class Recipe {
     private String name;
     private String description;
     private String photo;
+    private String mealType;
+    private LocalDate dateCook;
+    private String category;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -25,10 +30,13 @@ public class Recipe {
     public Recipe() {
     }
 
-    public Recipe(String name, String description, String photo, User user, List<Ingredient> ingredients) {
+    public Recipe(String name, String description, String photo, String mealType, LocalDate dateCook, String category, User user, List<Ingredient> ingredients) {
         this.name = name;
         this.description = description;
         this.photo = photo;
+        this.mealType = mealType;
+        this.dateCook = dateCook;
+        this.category = category;
         this.user = user;
         this.ingredients = ingredients;
     }
@@ -65,6 +73,30 @@ public class Recipe {
         this.photo = photo;
     }
 
+    public String getMealType() {
+        return mealType;
+    }
+
+    public void setMealType(String mealType) {
+        this.mealType = mealType;
+    }
+
+    public LocalDate getDateCook() {
+        return dateCook;
+    }
+
+    public void setDateCook(LocalDate dateCook) {
+        this.dateCook = dateCook;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     public User getUser() {
         return user;
     }
@@ -88,6 +120,9 @@ public class Recipe {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", photo='" + photo + '\'' +
+                ", mealType='" + mealType + '\'' +
+                ", dateCook=" + dateCook +
+                ", category='" + category + '\'' +
                 ", user=" + user +
                 ", ingredients=" + ingredients +
                 '}';
